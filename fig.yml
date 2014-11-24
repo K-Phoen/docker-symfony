@@ -1,0 +1,14 @@
+web:
+  build: .
+  working_dir: /srv/app
+  ports:
+    - "8080:80"
+  links:
+    - db
+  volumes:
+    - ./code:/srv/app
+
+db:
+  image: orchardup/mysql
+  environment:
+    MYSQL_DATABASE: wordpress
