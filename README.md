@@ -14,7 +14,7 @@ The environment will set up two containers:
 container. The following alias can be used to ease the use from the host.
 
 ```bash
-alias composer="sudo fig run web composer"
+alias composer="fig run web composer"
 ```
 
 ## Usage
