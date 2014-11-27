@@ -1,5 +1,5 @@
 web:
-  build: .
+  build: ./docker/web
   working_dir: /srv/app
   ports:
     - "8080:80"
