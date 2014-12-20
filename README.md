@@ -6,15 +6,13 @@ orchestrated with [Fig](http://fig.sh/).
 
 ## What's inside
 
-The environment will set up two containers:
+The environment will set up three containers:
   * one with Nginx and PHP 5 FPM (`web`) ;
-  * another with MySQL (`db`).
-
-[Composer](https://getcomposer.org/) is also globally installed in the `web`
-container. The following alias can be used to ease the use from the host.
+  * one with MySQL (`db`) ;
+  * and a last one with build tools such as [Composer](https://getcomposer.org/) (`tools`).
 
 ```bash
-alias composer="fig run web composer"
+alias composer="fig run tools composer"
 ```
 
 ## Usage

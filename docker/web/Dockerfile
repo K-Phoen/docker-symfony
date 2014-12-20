@@ -1,4 +1,5 @@
 FROM debian:wheezy
+MAINTAINER Kévin Gomez <contact@kevingomez.fr>
 
 # Set correct environment variables.
 ENV DEBIAN_FRONTEND noninteractive
@@ -6,7 +7,7 @@ ENV HOME /root
 
 # essential tools
 RUN apt-get update -y
-RUN apt-get install -y vim curl wget git zsh supervisor
+RUN apt-get install -y curl wget git zsh supervisor
 
 # additionnal repositories
 RUN echo "deb http://packages.dotdeb.org wheezy all\ndeb-src http://packages.dotdeb.org wheezy all" > /etc/apt/sources.list.d/dotdeb.list
@@ -17,9 +18,8 @@ RUN apt-get update -y
 ADD config/supervisor.conf /etc/supervisor/conf.d/supervisor.conf
 CMD ["/usr/bin/supervisord"]
 
-# install PHP and Composer
+# install PHP
 RUN apt-get install -y --allow-unauthenticated php5 php5-cli php5-sqlite php5-curl php5-gd php5-mcrypt php5-intl php5-memcached php5-xsl php5-xdebug php5-fpm
-RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
 
 RUN sed -e 's/;daemonize = yes/daemonize = no/' -i /etc/php5/fpm/php-fpm.conf
 RUN sed -e 's/;listen\.owner/listen.owner/' -i /etc/php5/fpm/pool.d/www.conf

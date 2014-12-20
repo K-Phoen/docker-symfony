@@ -1,3 +1,9 @@
+tools:
+  build: ./docker/buildtools
+  working_dir: /srv/app
+  volumes:
+    - ./code:/srv/app
+
 web:
   build: ./docker/web
   working_dir: /srv/app
