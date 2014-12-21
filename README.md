@@ -20,7 +20,7 @@ container.
 You can create the following aliases to easily access your build tools:
 
 ```bash
-alias composer="docker run --rm -v $(pwd)/code:/srv willdurand/buildtools composer"
+alias composer="docker run --rm -v $(pwd)/code:/srv willdurand/buildtools composer --ansi"
 ```
 
 ```bash
@@ -37,8 +37,8 @@ Building the images:
 fig build
 ```
 
-Starting the containers
+Starting the containers:
 
 ```bash
-fig up
+fab up
 ```
