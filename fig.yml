@@ -1,12 +1,39 @@
 web:
   build: ./docker/web
   working_dir: /srv/app
-  ports:
-    - "8080:80"
   links:
     - db
   volumes:
     - ./code:/srv/app
+  ports:
+    - 80
 
 db:
-  image: dockerfile/mysql
+  image: mysql:latest
+  volumes_from:
+    - mysqldata
+
+mysqldata:
+  image: busybox
+  volumes:
+    - /data
+
+hipache:
+  image: hipache
+  volumes_from:
+    - hipachedata
+  links:
+    - web
+  ports:
+    - "80:80"
+
+hipachedata:
+  image: busybox
+  volumes:
+    - /data
+
+rediscli:
+  image: redis:latest
+  entrypoint: [ redis-cli, -h, hipache ]
+  links:
+    - hipache
