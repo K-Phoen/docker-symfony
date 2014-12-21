@@ -1,9 +1,3 @@
-tools:
-  build: ./docker/buildtools
-  working_dir: /srv/app
-  volumes:
-    - ./code:/srv/app
-
 web:
   build: ./docker/web
   working_dir: /srv/app
@@ -15,6 +9,4 @@ web:
     - ./code:/srv/app
 
 db:
-  image: orchardup/mysql
-  environment:
-    MYSQL_DATABASE: wordpress
+  image: dockerfile/mysql
