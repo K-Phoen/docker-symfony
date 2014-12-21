@@ -32,5 +32,12 @@ RUN apt-get install -y nginx
 RUN echo "\ndaemon off;" >> /etc/nginx/nginx.conf
 ADD config/vhost.conf /etc/nginx/sites-available/default
 
+# Define mountable directories.
+VOLUME ["/etc/nginx/certs", "/etc/nginx/conf.d", "/var/log/nginx"]
+
+# Expose ports.
+EXPOSE 80
+EXPOSE 443
+
 # Clean up APT when done.
 RUN apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
