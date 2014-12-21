@@ -3,15 +3,23 @@ web:
   working_dir: /srv/app
   links:
     - db
+    - memcached
   volumes:
     - ./code:/srv/app
   ports:
     - 80
+  environment:
+    - SYMFONY__SECRET=foo_bar_baz
+    - SYMFONY__MEMCACHED__HOST=memcached
+    - SYMFONY__MEMCACHED__PORT=11211
 
 db:
   image: mysql:latest
   volumes_from:
     - mysqldata
+
+memcached:
+  image: kphoen/memcached
 
 mysqldata:
   image: busybox

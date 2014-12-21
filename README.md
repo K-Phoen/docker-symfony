@@ -6,9 +6,11 @@ orchestrated with [Fig](http://fig.sh/).
 
 ## What's inside
 
-The environment will set up three containers:
-  * one with Nginx and PHP 5 FPM (`web`) ;
-  * and another one with MySQL (`db`).
+The environment will set up the following containers:
+  * `web` with Nginx and PHP 5 FPM ;
+  * `memcached` with a Memcached instanced used to store PHP sessions ;
+  * `db` with MySQL ;
+  * and `hipache` as frontend to the `web` containers.
 
 **NOTE:** this setup integrates well with
 [willdurand](https://github.com/willdurand/)'s
