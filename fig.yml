@@ -17,31 +17,20 @@ db:
   image: mysql:latest
   volumes_from:
     - mysqldata
+  environment:
+    - MYSQL_ROOT_PASSWORD=toor
+
+mysqldata:
+  image: busybox:latest
+  volumes:
+    - /var/lib/mysql
 
 memcached:
   image: kphoen/memcached
 
-mysqldata:
-  image: busybox
-  volumes:
-    - /data
-
 hipache:
-  image: hipache
-  volumes_from:
-    - hipachedata
+  image: hipache:latest
   links:
     - web
   ports:
     - "80:80"
-
-hipachedata:
-  image: busybox
-  volumes:
-    - /data
-
-rediscli:
-  image: redis:latest
-  entrypoint: [ redis-cli, -h, hipache ]
-  links:
-    - hipache
