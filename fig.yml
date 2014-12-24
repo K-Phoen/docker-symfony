@@ -1,11 +1,18 @@
-web:
+app:
   build: .
-  working_dir: /srv/app
+  working_dir: /srv
+  volumes:
+    - /srv
+#  volumes:
+#    - .:/srv
+
+web:
+  image: kphoen/nginx-php
+  volumes_from:
+    - app
   links:
     - db
     - memcached
-#  volumes:
-#    - .:/srv/app
   ports:
     - 80
   environment:

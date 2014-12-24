@@ -1,9 +1,26 @@
+from os.path import basename, abspath
 from itertools import islice
 from time import sleep
-from fabric.api import task, local
+from fabric.api import task, local, run, cd
 
 BOOT_WAIT_DELAY = 10 # seconds
 STOP_WAIT_DELAY = 5  # seconds
+
+@task
+def build():
+    project_name = basename(abspath('.'))
+
+    # build app
+    local('git archive --format tar --prefix %s/ HEAD | (cd /tmp && tar xf -)' % project_name)
+
+    # install vendors
+    local('docker run --rm -v /tmp/%s:/srv --env-file=env-dist -e "SYMFONY_ENV=prod" willdurand/buildtools composer install --no-dev --optimize-autoloader --prefer-dist' % project_name)
+
+    # remove useless files
+    local('rm /tmp/%s/web/app_dev.php' % project_name)
+
+    # build container
+    local('fig -p %s build app' % project_name)
 
 @task
 def up():
