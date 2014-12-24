@@ -30,6 +30,9 @@ RUN php5enmod custom
 # define mountable directories
 VOLUME ["/etc/nginx/certs", "/etc/nginx/conf.d", "/var/log/nginx", "/srv/app"]
 
+# Import code and vendors into the container
+ADD . /srv/app
+
 # expose ports
 EXPOSE 80
 EXPOSE 443

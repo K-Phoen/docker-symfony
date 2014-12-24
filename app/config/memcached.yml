@@ -1,0 +1,11 @@
+services:
+    session.memcached:
+        class: Memcached
+        arguments:
+            persistent_id: sessions
+        calls:
+            - [ addServer, [ %memcached.host%, %memcached.port% ]]
+
+    session.handler.memcached:
+        class:     Symfony\Component\HttpFoundation\Session\Storage\Handler\MemcachedSessionHandler
+        arguments: [@session.memcached, { prefix: sessions, expiretime: 3600 }]

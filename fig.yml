@@ -1,11 +1,11 @@
 web:
-  build: ./docker/web
+  build: .
   working_dir: /srv/app
   links:
     - db
     - memcached
-  volumes:
-    - ./code:/srv/app
+#  volumes:
+#    - .:/srv/app
   ports:
     - 80
   environment:
